@@ -1,0 +1,86 @@
+buildscript {
+    ext {
+        version = '0.1.0'
+        description = 'GitHub contribution stat utilities.'
+        group = 'moe.pine'
+        siteUrl = 'https://github.com/pine/github-contribution-stats'
+        gitUrl = 'https://github.com/pine/github-contribution-stats.git'
+        userOrg = 'pinemz'
+    }
+    repositories {
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+    dependencies {
+        classpath 'net.rdrei.android.buildtimetracker:gradle-plugin:0.11.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.11'
+    }
+}
+
+
+// ----- Project ------------------------------------------
+
+apply plugin: 'java-library'
+apply plugin: 'idea'
+
+group rootProject.ext.group
+version rootProject.ext.version
+description rootProject.ext.description
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked'
+    options.compilerArgs << '-Xlint:deprecation'
+}
+
+dependencies {
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+    testImplementation 'org.powermock:powermock-reflect:2.0.2'
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+}
+
+
+// ----- Build Time Tracker -------------------------------
+
+apply plugin: 'build-time-tracker'
+
+buildtimetracker {
+    reporters {
+        summary {
+            ordered true
+            barstyle 'ascii'
+        }
+    }
+}
+
+
+// ----- JaCoCo ---------------------------------------
+
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.3'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
