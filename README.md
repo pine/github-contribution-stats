@@ -8,4 +8,4 @@
 This library is Java port of [moqada/github-contribution-stats](https://github.com/moqada/github-contribution-stats).
 
 ## License
-MIT &copy; Pine Mizune
+MIT &copy; [Pine Mizune](https://profile.pine.moe)
