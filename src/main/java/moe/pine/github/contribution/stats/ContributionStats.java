@@ -1,26 +1,35 @@
 package moe.pine.github.contribution.stats;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Objects;
 
 public class ContributionStats {
-    final List<Contribution> contributions;
-    final Streak currentStreak;
-    final Streak longestStreak;
+    private final List<Contribution> contributions;
+    private final Streak currentStreak;
+    private final Streak longestStreak;
 
     ContributionStats(
-            final List<Contribution> contributions,
-            final Streak currentStreak,
-            final Streak longestStreak
+        @Nonnull final List<Contribution> contributions,
+        @Nonnull final Streak currentStreak,
+        @Nonnull final Streak longestStreak
     ) {
-        this.contributions = contributions;
-        this.currentStreak = currentStreak;
-        this.longestStreak = longestStreak;
+        this.contributions = Objects.requireNonNull(contributions);
+        this.currentStreak = Objects.requireNonNull(currentStreak);
+        this.longestStreak = Objects.requireNonNull(longestStreak);
     }
 
+    @Nonnull
+    public List<Contribution> getContributions() {
+        return contributions;
+    }
+
+    @Nonnull
     public Streak getCurrentStreak() {
         return currentStreak;
     }
 
+    @Nonnull
     public Streak getLongestStreak() {
         return longestStreak;
     }

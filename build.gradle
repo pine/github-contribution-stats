@@ -6,6 +6,8 @@ buildscript {
         siteUrl = 'https://github.com/pine/github-contribution-stats'
         gitUrl = 'https://github.com/pine/github-contribution-stats.git'
         userOrg = 'pinemz'
+
+        powermockVersion = '2.0.2'
     }
     repositories {
         jcenter()
@@ -46,15 +48,11 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.12.1'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-    testImplementation 'org.powermock:powermock-reflect:2.0.2'
-}
-
-test {
-    useJUnitPlatform {
-        includeEngines 'junit-jupiter'
-    }
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation "org.powermock:powermock-reflect:$powermockVersion"
 }
 
 
