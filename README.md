@@ -7,6 +7,27 @@
 
 - Java 8 or later
 
+## Getting started
+
+```gradle
+repositories {
+    jcenter()
+}
+
+depepdencies {
+    implementation 'moe.pine:github-contribution-stats:0.1.0'
+}
+```
+
+## Usage
+
+```java
+import moe.pine.github.contribution.stats.ContributionStats;
+import moe.pine.github.contribution.stats.ContributionStatsClient;
+
+
+```
+
 ## Thanks
 This library is Java port of [moqada/github-contribution-stats](https://github.com/moqada/github-contribution-stats).
 
