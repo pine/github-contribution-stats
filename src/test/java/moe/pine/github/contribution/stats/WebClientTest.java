@@ -25,7 +25,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({WebClient.class, Jsoup.class})
+@PrepareForTest(Jsoup.class)
 public class WebClientTest {
     private WebClient webClient;
 
