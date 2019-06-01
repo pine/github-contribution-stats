@@ -1,5 +1,7 @@
 # github-contribution-stats
 
+[![codecov](https://codecov.io/gh/pine/github-contribution-stats/branch/master/graph/badge.svg)](https://codecov.io/gh/pine/github-contribution-stats)
+
 ## Requirements
 
 - Java 8 or later
