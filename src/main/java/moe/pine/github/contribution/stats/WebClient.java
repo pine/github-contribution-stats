@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,24 +30,26 @@ class WebClient {
         final String endpoint = String.format(ENDPOINT, username);
         final Document document = Jsoup.connect(endpoint).get();
         final Elements elements = document.select("rect");
+        final List<Contribution> contributions =
+            elements
+                .stream()
+                .flatMap(element -> {
+                    @Nonnull final String dateString = element.attr("data-date");
+                    @Nonnull final String countString = element.attr("data-count");
 
-        return elements
-            .stream()
-            .flatMap(element -> {
-                @Nonnull final String dateString = element.attr("data-date");
-                @Nonnull final String countString = element.attr("data-count");
+                    if (dateString.isEmpty()) {
+                        return Stream.empty();
+                    }
+                    if (countString.isEmpty()) {
+                        return Stream.empty();
+                    }
 
-                if (dateString.isEmpty()) {
-                    return Stream.empty();
-                }
-                if (countString.isEmpty()) {
-                    return Stream.empty();
-                }
+                    final LocalDate date = LocalDate.parse(dateString, FORMATTER);
+                    final int count = Integer.parseInt(countString);
+                    return Stream.of(new Contribution(date, count));
+                })
+                .collect(Collectors.toList());
 
-                final LocalDate date = LocalDate.parse(dateString, FORMATTER);
-                final int count = Integer.parseInt(countString);
-                return Stream.of(new Contribution(date, count));
-            })
-            .collect(Collectors.toList());
+        return Collections.unmodifiableList(contributions);
     }
 }

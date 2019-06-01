@@ -8,15 +8,18 @@ public class ContributionStats {
     private final List<Contribution> contributions;
     private final Streak currentStreak;
     private final Streak longestStreak;
+    private final Summary summary;
 
-    ContributionStats(
+    public ContributionStats(
         @Nonnull final List<Contribution> contributions,
         @Nonnull final Streak currentStreak,
-        @Nonnull final Streak longestStreak
+        @Nonnull final Streak longestStreak,
+        @Nonnull final Summary summary
     ) {
         this.contributions = Objects.requireNonNull(contributions);
         this.currentStreak = Objects.requireNonNull(currentStreak);
         this.longestStreak = Objects.requireNonNull(longestStreak);
+        this.summary = Objects.requireNonNull(summary);
     }
 
     @Nonnull
@@ -32,5 +35,10 @@ public class ContributionStats {
     @Nonnull
     public Streak getLongestStreak() {
         return longestStreak;
+    }
+
+    @Nonnull
+    public Summary getSummary() {
+        return summary;
     }
 }

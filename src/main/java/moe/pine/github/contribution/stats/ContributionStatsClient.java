@@ -22,11 +22,13 @@ public class ContributionStatsClient {
 
     public ContributionStats collect(@Nonnull final String username) throws IOException {
         final List<Contribution> contributions = webClient.get(username);
-        final Aggregator.Streaks streaks = aggregator.computeStreaks();
+        final Aggregator.Streaks streaks = aggregator.getStreaks(contributions);
+        final Summary summary = aggregator.summarizeContributions(contributions);
 
         return new ContributionStats(
             contributions,
             streaks.currentStreak,
-            streaks.longestStreak);
+            streaks.longestStreak,
+            summary);
     }
 }

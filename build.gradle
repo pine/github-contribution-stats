@@ -7,6 +7,7 @@ buildscript {
         gitUrl = 'https://github.com/pine/github-contribution-stats.git'
         userOrg = 'pinemz'
 
+        lombokVersion = '1.18.6'
         powermockVersion = '2.0.2'
     }
     repositories {
@@ -53,6 +54,7 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
     testImplementation "org.powermock:powermock-reflect:$powermockVersion"
+    testImplementation 'commons-io:commons-io:2.6'
 }
 
 
