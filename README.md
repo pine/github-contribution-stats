@@ -1,5 +1,6 @@
 # github-contribution-stats
 
+[![Build Status](https://travis-ci.com/pine/github-contribution-stats.svg?branch=master)](https://travis-ci.com/pine/github-contribution-stats)
 [![codecov](https://codecov.io/gh/pine/github-contribution-stats/branch/master/graph/badge.svg)](https://codecov.io/gh/pine/github-contribution-stats)
 
 ## Requirements
