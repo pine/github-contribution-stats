@@ -42,7 +42,7 @@ class Aggregator {
                     longestStreak.setStart(currentStreak.getStart());
                     longestStreak.setEnd(currentStreak.getEnd());
                 }
-            } else if (Objects.equals(contribution.getDate(), end)) {
+            } else if (!Objects.equals(contribution.getDate(), end)) {
                 currentStreak.setDays(0);
                 currentStreak.setStart(null);
                 currentStreak.setEnd(null);

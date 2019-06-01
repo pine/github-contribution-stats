@@ -1,6 +1,5 @@
 package moe.pine.github.contribution.stats;
 
-import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
@@ -11,13 +10,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -36,12 +33,7 @@ public class WebClientTest {
 
     @Test
     public void getTest() throws IOException {
-        final String body =
-            IOUtils.toString(
-                getClass().getResourceAsStream("/contributions.html"),
-                StandardCharsets.UTF_8);
-
-        final Document document = Jsoup.parse(body);
+        final Document document = Jsoup.parse(TestUtils.getContributionsHtml());
         final HttpConnection httpConnection = mock(HttpConnection.class);
         when(httpConnection.get()).thenReturn(document);
 
@@ -79,5 +71,11 @@ public class WebClientTest {
         Jsoup.connect("https://github.com/users/pine/contributions");
 
         verify(httpConnection).get();
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getTest_illegalUsername() throws IOException {
+        webClient.get("");
     }
 }

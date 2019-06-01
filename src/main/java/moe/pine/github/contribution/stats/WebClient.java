@@ -29,6 +29,14 @@ class WebClient {
 
         final String endpoint = String.format(ENDPOINT, username);
         final Document document = Jsoup.connect(endpoint).get();
+        return getByDocument(document);
+    }
+
+    @Nonnull
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    List<Contribution> getByDocument(@Nonnull final Document document) {
+        Objects.requireNonNull(document);
+
         final Elements elements = document.select("rect");
         final List<Contribution> contributions =
             elements

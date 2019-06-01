@@ -15,6 +15,16 @@ public class Streak {
 
     private boolean unmeasurable;
 
+    public Streak() {
+    }
+
+    public Streak(int days, LocalDate start, LocalDate end, boolean unmeasurable) {
+        this.days = days;
+        this.start = start;
+        this.end = end;
+        this.unmeasurable = unmeasurable;
+    }
+
     public int getDays() {
         return days;
     }
@@ -63,5 +73,15 @@ public class Streak {
     @Override
     public int hashCode() {
         return Objects.hash(days, start, end, unmeasurable);
+    }
+
+    @Override
+    public String toString() {
+        return "Streak{" +
+            "days=" + days +
+            ", start=" + start +
+            ", end=" + end +
+            ", unmeasurable=" + unmeasurable +
+            '}';
     }
 }
