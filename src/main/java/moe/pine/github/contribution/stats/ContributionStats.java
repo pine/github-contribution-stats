@@ -41,4 +41,14 @@ public class ContributionStats {
     public Summary getSummary() {
         return summary;
     }
+
+    @Override
+    public String toString() {
+        return "ContributionStats{" +
+                "contributions=" + contributions +
+                ", currentStreak=" + currentStreak +
+                ", longestStreak=" + longestStreak +
+                ", summary=" + summary +
+                '}';
+    }
 }

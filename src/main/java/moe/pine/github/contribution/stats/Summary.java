@@ -47,4 +47,14 @@ public class Summary {
     public Contribution getBusiestDay() {
         return busiestDay;
     }
+
+    @Override
+    public String toString() {
+        return "Summary{" +
+                "start=" + start +
+                ", end=" + end +
+                ", total=" + total +
+                ", busiestDay=" + busiestDay +
+                '}';
+    }
 }
