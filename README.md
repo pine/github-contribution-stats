@@ -33,6 +33,21 @@ final ContributionStats stats = client.collect("username");
 System.out.println(stats);
 ```
 
+## Development
+### Test
+
+```
+$ ./gradlew clean test
+```
+
+### Upload Bintray
+
+```
+$ export BINTRAY_USER=username
+$ export BINTRAY_KEY=apiKey
+$ ./gradlew clean assemble bintrayUpload
+```
+
 ## Thanks
 This library is Java port of [moqada/github-contribution-stats](https://github.com/moqada/github-contribution-stats).
 

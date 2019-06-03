@@ -86,3 +86,8 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+
+
+// ----- Bintray ------------------------------------------
+
+apply from: "${rootProject.projectDir}/gradle/bintray.gradle"
