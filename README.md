@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/pine/github-contribution-stats.svg?branch=master)](https://travis-ci.com/pine/github-contribution-stats)
 [![codecov](https://codecov.io/gh/pine/github-contribution-stats/branch/master/graph/badge.svg)](https://codecov.io/gh/pine/github-contribution-stats)
+<br>
+<br>
 
 ## Requirements
 
@@ -24,8 +26,6 @@ depepdencies {
 ```java
 import moe.pine.github.contribution.stats.ContributionStats;
 import moe.pine.github.contribution.stats.ContributionStatsClient;
-
-...
 
 final ContributionStatsClient client = new ContributionStatsClient();
 final ContributionStats stats = client.collect("username");
