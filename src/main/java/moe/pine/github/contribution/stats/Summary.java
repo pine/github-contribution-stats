@@ -3,13 +3,14 @@ package moe.pine.github.contribution.stats;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Summary {
     @Nonnull
-    private LocalDate end;
+    private LocalDate start;
 
     @Nonnull
-    private LocalDate start;
+    private LocalDate end;
 
     private int total;
 
@@ -17,13 +18,13 @@ public class Summary {
     private Contribution busiestDay;
 
     public Summary(
-        @Nonnull LocalDate end,
-        @Nonnull LocalDate start,
-        int total,
-        @Nullable Contribution busiestDay
+            @Nonnull final LocalDate start,
+            @Nonnull final LocalDate end,
+            final int total,
+            @Nullable final Contribution busiestDay
     ) {
-        this.end = end;
-        this.start = start;
+        this.start = Objects.requireNonNull(start);
+        this.end = Objects.requireNonNull(end);
         this.total = total;
         this.busiestDay = busiestDay;
     }
