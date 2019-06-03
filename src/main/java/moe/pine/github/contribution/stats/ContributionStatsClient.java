@@ -3,6 +3,7 @@ package moe.pine.github.contribution.stats;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ContributionStatsClient {
     private final WebClient webClient;
@@ -13,11 +14,11 @@ public class ContributionStatsClient {
     }
 
     ContributionStatsClient(
-        final WebClient webClient,
-        final Aggregator aggregator
+            final WebClient webClient,
+            final Aggregator aggregator
     ) {
-        this.webClient = webClient;
-        this.aggregator = aggregator;
+        this.webClient = Objects.requireNonNull(webClient);
+        this.aggregator = Objects.requireNonNull(aggregator);
     }
 
     public ContributionStats collect(@Nonnull final String username) throws IOException {
@@ -26,9 +27,9 @@ public class ContributionStatsClient {
         final Summary summary = aggregator.summarizeContributions(contributions);
 
         return new ContributionStats(
-            contributions,
-            streaks.currentStreak,
-            streaks.longestStreak,
-            summary);
+                contributions,
+                streaks.currentStreak,
+                streaks.longestStreak,
+                summary);
     }
 }
