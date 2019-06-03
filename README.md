@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/pine/github-contribution-stats/branch/master/graph/badge.svg)](https://codecov.io/gh/pine/github-contribution-stats)
 [![Download](https://api.bintray.com/packages/pinemz/maven/github-contribution-stats/images/download.svg)](https://bintray.com/pinemz/maven/github-contribution-stats)
 
-![](grasses.jpg)<br>
+![](images/readme.jpg)<br>
 <sup><sup>&copy; PaylessImages/123RF.COM</sup></sup>
 <br>
 <br>
