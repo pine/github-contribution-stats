@@ -9,12 +9,12 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-class TestUtils {
+abstract class TestUtils {
     static String getContributionsHtml() {
         try {
             return IOUtils.toString(
-                TestUtils.class.getResourceAsStream("/contributions.html"),
-                StandardCharsets.UTF_8);
+                    TestUtils.class.getResourceAsStream("/contributions.html"),
+                    StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
