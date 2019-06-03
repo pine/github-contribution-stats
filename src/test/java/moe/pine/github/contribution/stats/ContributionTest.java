@@ -39,4 +39,14 @@ public class ContributionTest {
         assertNotSame(contribution1, contribution2);
         assertEquals(contribution1.hashCode(), contribution2.hashCode());
     }
+
+    @Test
+    public void toStringTest() {
+        final LocalDate date = LocalDate.of(2019, 6, 3);
+        final Contribution contribution1 = new Contribution(date, 1);
+        final Contribution contribution2 = new Contribution(date, 1);
+
+        assertNotSame(contribution1, contribution2);
+        assertEquals(contribution1.toString(), contribution2.toString());
+    }
 }

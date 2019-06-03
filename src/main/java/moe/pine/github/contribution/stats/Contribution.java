@@ -10,8 +10,8 @@ public class Contribution {
     private final int count;
 
     public Contribution(
-        @Nonnull final LocalDate date,
-        final int count
+            @Nonnull final LocalDate date,
+            final int count
     ) {
         this.date = Objects.requireNonNull(date);
         this.count = count;
@@ -32,11 +32,19 @@ public class Contribution {
         if (o == null || getClass() != o.getClass()) return false;
         Contribution that = (Contribution) o;
         return count == that.count &&
-            date.equals(that.date);
+                date.equals(that.date);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(date, count);
+    }
+
+    @Override
+    public String toString() {
+        return "Contribution{" +
+                "date=" + date +
+                ", count=" + count +
+                '}';
     }
 }
