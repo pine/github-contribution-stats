@@ -61,4 +61,9 @@ public class AggregatorTest {
                 new Contribution(LocalDate.of(2019, 6, 3), 3),
                 summary.getBusiestDay());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void summarizeContributionsTest_illegalContributions() {
+        aggregator.summarizeContributions(Collections.emptyList());
+    }
 }
