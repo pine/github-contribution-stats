@@ -16,6 +16,7 @@
 - Java 8 or later
 
 ## Getting started
+The library is published to [Bintray](https://bintray.com/pinemz/maven/github-contribution-stats).
 
 ```gradle
 repositories {
@@ -42,13 +43,13 @@ System.out.println(stats);
 ## Development
 ### Test
 
-```
+```bash
 $ ./gradlew clean test
 ```
 
 ### Upload Bintray
 
-```
+```bash
 $ export BINTRAY_USER=username
 $ export BINTRAY_KEY=apiKey
 $ ./gradlew clean assemble bintrayUpload
