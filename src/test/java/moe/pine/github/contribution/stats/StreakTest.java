@@ -64,4 +64,17 @@ public class StreakTest {
 
         assertEquals(streak1.hashCode(), streak2.hashCode());
     }
+
+    @Test
+    public void toStringTest() {
+        final Streak streak = new Streak();
+        streak.setDays(5);
+        streak.setStart(LocalDate.of(2019, 6, 5));
+        streak.setEnd(LocalDate.of(2019, 6, 6));
+        streak.setUnmeasurable(true);
+
+        assertEquals(
+            "Streak{days=5, start=2019-06-05, end=2019-06-06, unmeasurable=true}",
+            streak.toString());
+    }
 }
