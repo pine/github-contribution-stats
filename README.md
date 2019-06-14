@@ -16,7 +16,7 @@
 - Java 8 or later
 
 ## Getting started
-The library is published to [Bintray](https://bintray.com/pinemz/maven/github-contribution-stats).
+The library is published to [jcenter](https://bintray.com/pinemz/maven/github-contribution-stats).
 
 ```gradle
 repositories {
