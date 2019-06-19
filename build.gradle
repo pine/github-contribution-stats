@@ -3,8 +3,9 @@ buildscript {
         version = '0.1.0'
         description = 'GitHub contribution stat utilities.'
         group = 'moe.pine'
-        siteUrl = 'https://github.com/pine/github-contribution-stats'
+        websiteUrl = 'https://github.com/pine/github-contribution-stats'
         gitUrl = 'https://github.com/pine/github-contribution-stats.git'
+        issueTrackerUrl = 'https://github.com/pine/github-contribution-stats/issues'
         userOrg = 'pinemz'
 
         lombokVersion = '1.18.6'
