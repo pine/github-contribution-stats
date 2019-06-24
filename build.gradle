@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        version = '0.1.0'
+        version = '0.1.1'
         description = 'GitHub contribution stat utilities.'
         group = 'moe.pine'
         websiteUrl = 'https://github.com/pine/github-contribution-stats'
