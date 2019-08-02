@@ -23,12 +23,12 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Jsoup.class)
-public class WebClientTest {
-    private WebClient webClient;
+public class ParserTest {
+    private Parser webClient;
 
     @Before
     public void setUp() {
-        webClient = new WebClient();
+        webClient = new Parser();
     }
 
     @Test
@@ -40,7 +40,7 @@ public class WebClientTest {
         mockStatic(Jsoup.class);
         when(Jsoup.connect(anyString())).thenReturn(httpConnection);
 
-        final List<Contribution> contributions = webClient.get("pine");
+        final List<Contribution> contributions = webClient.parse("pine");
         assertEquals(
             new Contribution(LocalDate.of(2018, 5, 27), 9),
             contributions.get(0));
@@ -76,6 +76,6 @@ public class WebClientTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void getTest_illegalUsername() throws IOException {
-        webClient.get("");
+        webClient.parse("");
     }
 }

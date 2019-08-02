@@ -22,6 +22,6 @@ abstract class TestUtils {
 
     static List<Contribution> getContributions() {
         final Document document = Jsoup.parse(getContributionsHtml());
-        return new WebClient().getByDocument(document);
+        return new Parser().getByDocument(document);
     }
 }

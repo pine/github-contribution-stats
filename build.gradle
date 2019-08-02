@@ -47,6 +47,7 @@ compileJava {
 
 dependencies {
     api 'org.jsoup:jsoup:1.12.1'
+    api 'io.projectreactor.netty:reactor-netty:0.8.10.RELEASE'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
     testImplementation 'junit:junit:4.12'

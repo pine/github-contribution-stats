@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ContributionStatsClientTest {
     @Mock
-    private WebClient webClient;
+    private Parser webClient;
 
     @Mock
     private Aggregator aggregator;
@@ -33,10 +33,10 @@ public class ContributionStatsClientTest {
     @Test
     public void constructorTest_noArgs() {
         final ContributionStatsClient client = new ContributionStatsClient();
-        final WebClient webClient = Whitebox.getInternalState(client, "webClient");
+        final Parser parser = Whitebox.getInternalState(client, "parser");
         final Aggregator aggregator = Whitebox.getInternalState(client, "aggregator");
 
-        assertNotNull(webClient);
+        assertNotNull(parser);
         assertNotNull(aggregator);
     }
 
@@ -54,7 +54,7 @@ public class ContributionStatsClientTest {
 
         final Summary summary = mock(Summary.class);
 
-        when(webClient.get("username")).thenReturn(contributions);
+        when(webClient.parse("username")).thenReturn(contributions);
         when(aggregator.getStreaks(contributions)).thenReturn(streaks);
         when(aggregator.summarizeContributions(contributions)).thenReturn(summary);
 
@@ -65,7 +65,7 @@ public class ContributionStatsClientTest {
         assertSame(streaks.longestStreak, stats.getLongestStreak());
         assertSame(summary, stats.getSummary());
 
-        verify(webClient).get("username");
+        verify(webClient).parse("username");
         verify(aggregator).getStreaks(contributions);
         verify(aggregator).summarizeContributions(contributions);
     }
