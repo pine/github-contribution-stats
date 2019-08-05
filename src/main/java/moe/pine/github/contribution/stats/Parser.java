@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -18,30 +17,30 @@ class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Nonnull
-    List<Contribution> parse(@Nonnull final String body) throws IOException {
+    List<Contribution> parse(@Nonnull final String body) {
         Objects.requireNonNull(body);
 
         final Document document = Jsoup.parse(body);
         final Elements elements = document.select("rect");
         final List<Contribution> contributions =
-                elements
-                        .stream()
-                        .flatMap(element -> {
-                            @Nonnull final String dateString = element.attr("data-date");
-                            @Nonnull final String countString = element.attr("data-count");
+            elements
+                .stream()
+                .flatMap(element -> {
+                    @Nonnull final String dateString = element.attr("data-date");
+                    @Nonnull final String countString = element.attr("data-count");
 
-                            if (dateString.isEmpty()) {
-                                return Stream.empty();
-                            }
-                            if (countString.isEmpty()) {
-                                return Stream.empty();
-                            }
+                    if (dateString.isEmpty()) {
+                        return Stream.empty();
+                    }
+                    if (countString.isEmpty()) {
+                        return Stream.empty();
+                    }
 
-                            final LocalDate date = LocalDate.parse(dateString, FORMATTER);
-                            final int count = Integer.parseInt(countString);
-                            return Stream.of(new Contribution(date, count));
-                        })
-                        .collect(Collectors.toList());
+                    final LocalDate date = LocalDate.parse(dateString, FORMATTER);
+                    final int count = Integer.parseInt(countString);
+                    return Stream.of(new Contribution(date, count));
+                })
+                .collect(Collectors.toList());
 
         return Collections.unmodifiableList(contributions);
     }
