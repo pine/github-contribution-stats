@@ -2,6 +2,8 @@ package moe.pine.github.contribution.stats;
 
 import reactor.netty.http.client.HttpClient;
 
+import javax.annotation.Nonnull;
+
 class WebClient {
     private static final String ENDPOINT = "https://github.com/users/%s/contributions";
 
@@ -15,7 +17,7 @@ class WebClient {
         this.httpClient = httpClient;
     }
 
-    String get(final String username) {
+    String get(@Nonnull final String username) {
         final String endpoint = String.format(ENDPOINT, username);
         return httpClient
             .get()

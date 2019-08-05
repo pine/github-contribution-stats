@@ -22,7 +22,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ContributionStatsClientTest {
     @Mock
-    private Parser webClient;
+    private WebClient webClient;
+
+    @Mock
+    private Parser parser;
 
     @Mock
     private Aggregator aggregator;
@@ -54,7 +57,8 @@ public class ContributionStatsClientTest {
 
         final Summary summary = mock(Summary.class);
 
-        when(webClient.parse("username")).thenReturn(contributions);
+        when(webClient.get("username")).thenReturn("body");
+        when(parser.parse("body")).thenReturn(contributions);
         when(aggregator.getStreaks(contributions)).thenReturn(streaks);
         when(aggregator.summarizeContributions(contributions)).thenReturn(summary);
 
@@ -65,7 +69,8 @@ public class ContributionStatsClientTest {
         assertSame(streaks.longestStreak, stats.getLongestStreak());
         assertSame(summary, stats.getSummary());
 
-        verify(webClient).parse("username");
+        verify(webClient).get("username");
+        verify(parser).parse("body");
         verify(aggregator).getStreaks(contributions);
         verify(aggregator).summarizeContributions(contributions);
     }
