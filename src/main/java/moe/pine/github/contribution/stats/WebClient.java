@@ -5,8 +5,6 @@ import reactor.netty.http.client.HttpClient;
 import javax.annotation.Nonnull;
 
 class WebClient {
-    private static final String ENDPOINT = "https://github.com/users/%s/contributions";
-
     private final HttpClient httpClient;
 
     WebClient() {
@@ -17,14 +15,13 @@ class WebClient {
         this.httpClient = httpClient;
     }
 
-    String get(@Nonnull final String username) {
-        final String endpoint = String.format(ENDPOINT, username);
+    String get(@Nonnull final String uri) {
         return httpClient
-            .get()
-            .uri(endpoint)
-            .responseContent()
-            .aggregate()
-            .asString()
-            .block();
+                .get()
+                .uri(uri)
+                .responseContent()
+                .aggregate()
+                .asString()
+                .block();
     }
 }

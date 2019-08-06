@@ -7,33 +7,38 @@ import java.util.Objects;
 
 public class ContributionStatsClient {
     private final WebClient webClient;
+    private UriBuilder uriBuilder;
     private final Parser parser;
     private final Aggregator aggregator;
 
-    public ContributionStatsClient() {
-        this(new WebClient(), new Parser(), new Aggregator());
+    public static ContributionStatsClient create() {
+        return new ContributionStatsClient(
+                new WebClient(), new UriBuilder(), new Parser(), new Aggregator());
     }
 
     ContributionStatsClient(
-        final WebClient webClient,
-        final Parser parser,
-        final Aggregator aggregator
+            final WebClient webClient,
+            final UriBuilder uriBuilder,
+            final Parser parser,
+            final Aggregator aggregator
     ) {
         this.webClient = Objects.requireNonNull(webClient);
+        this.uriBuilder = Objects.requireNonNull(uriBuilder);
         this.parser = Objects.requireNonNull(parser);
         this.aggregator = Objects.requireNonNull(aggregator);
     }
 
     public ContributionStats collect(@Nonnull final String username) throws IOException {
-        final String body = webClient.get(username);
+        final String uri = uriBuilder.build(username);
+        final String body = webClient.get(uri);
         final List<Contribution> contributions = parser.parse(body);
         final Aggregator.Streaks streaks = aggregator.getStreaks(contributions);
         final Summary summary = aggregator.summarizeContributions(contributions);
 
         return new ContributionStats(
-            contributions,
-            streaks.currentStreak,
-            streaks.longestStreak,
-            summary);
+                contributions,
+                streaks.currentStreak,
+                streaks.longestStreak,
+                summary);
     }
 }
