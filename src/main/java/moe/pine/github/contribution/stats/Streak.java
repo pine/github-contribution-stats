@@ -1,6 +1,7 @@
 package moe.pine.github.contribution.stats;
 
-import javax.annotation.Nullable;
+import moe.pine.nonnull.Nullable;
+
 import java.time.LocalDate;
 import java.util.Objects;
 

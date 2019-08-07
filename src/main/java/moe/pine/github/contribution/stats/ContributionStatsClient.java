@@ -1,6 +1,5 @@
 package moe.pine.github.contribution.stats;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -15,16 +14,16 @@ public class ContributionStatsClient {
         return create(WebClient.create());
     }
 
-    public static ContributionStatsClient create(@Nonnull final WebClient webClient) {
+    public static ContributionStatsClient create(final WebClient webClient) {
         return new ContributionStatsClient(
-                webClient, new UriBuilder(), new Parser(), new Aggregator());
+            webClient, new UriBuilder(), new Parser(), new Aggregator());
     }
 
     ContributionStatsClient(
-            final WebClient webClient,
-            final UriBuilder uriBuilder,
-            final Parser parser,
-            final Aggregator aggregator
+        final WebClient webClient,
+        final UriBuilder uriBuilder,
+        final Parser parser,
+        final Aggregator aggregator
     ) {
         this.webClient = Objects.requireNonNull(webClient);
         this.uriBuilder = Objects.requireNonNull(uriBuilder);
@@ -32,18 +31,22 @@ public class ContributionStatsClient {
         this.aggregator = Objects.requireNonNull(aggregator);
     }
 
-    public ContributionStats collect(@Nonnull final String username) throws IOException {
+    public ContributionStats collect(final String username) throws IOException {
         final String uri = uriBuilder.build(username);
         final String body = webClient.get(uri);
+        if (body == null || body.length() == 0) {
+            throw new RuntimeException("A empty response received.");
+        }
+
         final List<Contribution> contributions = parser.parse(body);
         final Aggregator.Streaks streaks = aggregator.getStreaks(contributions);
         final Summary summary = aggregator.summarizeContributions(contributions);
 
         return new ContributionStats(
-                contributions,
-                streaks.currentStreak,
-                streaks.longestStreak,
-                summary);
+            contributions,
+            streaks.currentStreak,
+            streaks.longestStreak,
+            summary);
     }
 
     public WebClient getWebClient() {

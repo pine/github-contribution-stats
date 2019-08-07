@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -16,8 +15,7 @@ import java.util.stream.Stream;
 class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @Nonnull
-    List<Contribution> parse(@Nonnull final String body) {
+    List<Contribution> parse(final String body) {
         Objects.requireNonNull(body);
 
         final Document document = Jsoup.parse(body);
@@ -26,8 +24,8 @@ class Parser {
             elements
                 .stream()
                 .flatMap(element -> {
-                    @Nonnull final String dateString = element.attr("data-date");
-                    @Nonnull final String countString = element.attr("data-count");
+                    final String dateString = element.attr("data-date");
+                    final String countString = element.attr("data-count");
 
                     if (dateString.isEmpty()) {
                         return Stream.empty();

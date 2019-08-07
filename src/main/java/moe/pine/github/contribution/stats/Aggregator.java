@@ -1,7 +1,5 @@
 package moe.pine.github.contribution.stats;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -9,16 +7,11 @@ import java.util.Objects;
 
 class Aggregator {
     static class Streaks {
-        @Nonnull
         Streak currentStreak = new Streak();
-
-        @Nonnull
         Streak longestStreak = new Streak();
     }
 
-    @Nonnull
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    Streaks getStreaks(@Nonnull final List<Contribution> contributions) {
+    Streaks getStreaks(final List<Contribution> contributions) {
         Objects.requireNonNull(contributions);
 
         if (contributions.isEmpty()) {
@@ -61,9 +54,7 @@ class Aggregator {
         return streaks;
     }
 
-    @Nonnull
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    Summary summarizeContributions(@Nonnull final List<Contribution> contributions) {
+    Summary summarizeContributions(final List<Contribution> contributions) {
         Objects.requireNonNull(contributions);
 
         if (contributions.isEmpty()) {
@@ -79,7 +70,7 @@ class Aggregator {
                 .mapToInt(Integer::valueOf)
                 .sum();
 
-        @Nullable final Contribution busiestDay =
+        final Contribution busiestDay =
             contributions.stream()
                 .filter(v -> v.getCount() > 0)
                 .max(Comparator

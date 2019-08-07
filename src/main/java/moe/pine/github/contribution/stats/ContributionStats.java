@@ -1,6 +1,5 @@
 package moe.pine.github.contribution.stats;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,10 +10,10 @@ public class ContributionStats {
     private final Summary summary;
 
     public ContributionStats(
-        @Nonnull final List<Contribution> contributions,
-        @Nonnull final Streak currentStreak,
-        @Nonnull final Streak longestStreak,
-        @Nonnull final Summary summary
+        final List<Contribution> contributions,
+        final Streak currentStreak,
+        final Streak longestStreak,
+        final Summary summary
     ) {
         this.contributions = Objects.requireNonNull(contributions);
         this.currentStreak = Objects.requireNonNull(currentStreak);
@@ -22,22 +21,18 @@ public class ContributionStats {
         this.summary = Objects.requireNonNull(summary);
     }
 
-    @Nonnull
     public List<Contribution> getContributions() {
         return contributions;
     }
 
-    @Nonnull
     public Streak getCurrentStreak() {
         return currentStreak;
     }
 
-    @Nonnull
     public Streak getLongestStreak() {
         return longestStreak;
     }
 
-    @Nonnull
     public Summary getSummary() {
         return summary;
     }
