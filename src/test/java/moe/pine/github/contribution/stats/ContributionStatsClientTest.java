@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("NullableProblems")
 @RunWith(MockitoJUnitRunner.class)
 public class ContributionStatsClientTest {
     @Mock
@@ -66,9 +67,9 @@ public class ContributionStatsClientTest {
     @Test
     public void collectTest() throws IOException {
         final List<Contribution> contributions = Arrays.asList(
-                new Contribution(LocalDate.of(2019, 6, 1), 1),
-                new Contribution(LocalDate.of(2019, 6, 2), 2),
-                new Contribution(LocalDate.of(2019, 6, 3), 3)
+            new Contribution(LocalDate.of(2019, 6, 1), 1),
+            new Contribution(LocalDate.of(2019, 6, 2), 2),
+            new Contribution(LocalDate.of(2019, 6, 3), 3)
         );
 
         final Aggregator.Streaks streaks = new Aggregator.Streaks();
@@ -95,5 +96,21 @@ public class ContributionStatsClientTest {
         verify(parser).parse("body");
         verify(aggregator).getStreaks(contributions);
         verify(aggregator).summarizeContributions(contributions);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void collectTest_nullBody() throws IOException {
+        when(uriBuilder.build("username")).thenReturn("https://example.com/username");
+        when(webClient.get("https://example.com/username")).thenReturn(null);
+
+        client.collect("username");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void collectTest_emptyBody() throws IOException {
+        when(uriBuilder.build("username")).thenReturn("https://example.com/username");
+        when(webClient.get("https://example.com/username")).thenReturn("");
+
+        client.collect("username");
     }
 }
