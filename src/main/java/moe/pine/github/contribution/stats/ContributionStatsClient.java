@@ -45,4 +45,8 @@ public class ContributionStatsClient {
                 streaks.longestStreak,
                 summary);
     }
+
+    public WebClient getWebClient() {
+        return webClient;
+    }
 }

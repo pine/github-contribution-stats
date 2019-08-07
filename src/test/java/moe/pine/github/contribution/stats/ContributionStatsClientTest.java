@@ -39,12 +39,25 @@ public class ContributionStatsClientTest {
     @Test
     public void createTest_noArgs() {
         final ContributionStatsClient client = ContributionStatsClient.create();
-        final WebClient webClient = Whitebox.getInternalState(client, "webClient");
         final UriBuilder uriBuilder = Whitebox.getInternalState(client, "uriBuilder");
         final Parser parser = Whitebox.getInternalState(client, "parser");
         final Aggregator aggregator = Whitebox.getInternalState(client, "aggregator");
 
-        assertNotNull(webClient);
+        assertNotNull(client.getWebClient());
+        assertNotNull(uriBuilder);
+        assertNotNull(parser);
+        assertNotNull(aggregator);
+    }
+
+    @Test
+    public void createTest_withWebClient() {
+        final WebClient webClient = WebClient.create();
+        final ContributionStatsClient client = ContributionStatsClient.create(webClient);
+        final UriBuilder uriBuilder = Whitebox.getInternalState(client, "uriBuilder");
+        final Parser parser = Whitebox.getInternalState(client, "parser");
+        final Aggregator aggregator = Whitebox.getInternalState(client, "aggregator");
+
+        assertSame(webClient, client.getWebClient());
         assertNotNull(uriBuilder);
         assertNotNull(parser);
         assertNotNull(aggregator);
