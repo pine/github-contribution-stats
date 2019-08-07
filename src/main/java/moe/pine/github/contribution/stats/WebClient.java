@@ -4,24 +4,29 @@ import reactor.netty.http.client.HttpClient;
 
 import javax.annotation.Nonnull;
 
-class WebClient {
-    private final HttpClient httpClient;
-
-    WebClient() {
-        this(HttpClient.create());
+public abstract class WebClient {
+    public static WebClient create() {
+        return new WebClientImpl();
     }
 
-    WebClient(final HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
+    public abstract String get(@Nonnull final String uri);
 
-    String get(@Nonnull final String uri) {
-        return httpClient
-                .get()
-                .uri(uri)
-                .responseContent()
-                .aggregate()
-                .asString()
-                .block();
+    static class WebClientImpl extends WebClient {
+        private final HttpClient httpClient;
+
+        WebClientImpl() {
+            httpClient = HttpClient.create();
+        }
+
+        @Override
+        public String get(@Nonnull final String uri) {
+            return httpClient
+                    .get()
+                    .uri(uri)
+                    .responseContent()
+                    .aggregate()
+                    .asString()
+                    .block();
+        }
     }
 }

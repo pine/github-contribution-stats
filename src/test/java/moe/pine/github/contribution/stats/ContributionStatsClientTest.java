@@ -37,7 +37,7 @@ public class ContributionStatsClientTest {
     private ContributionStatsClient client;
 
     @Test
-    public void constructorTest_noArgs() {
+    public void createTest_noArgs() {
         final ContributionStatsClient client = ContributionStatsClient.create();
         final WebClient webClient = Whitebox.getInternalState(client, "webClient");
         final UriBuilder uriBuilder = Whitebox.getInternalState(client, "uriBuilder");

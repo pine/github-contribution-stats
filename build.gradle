@@ -9,6 +9,7 @@ buildscript {
         userOrg = 'pinemz'
 
         lombokVersion = '1.18.6'
+        okhttpVersion = '4.0.1'
         powermockVersion = '2.0.2'
     }
     repositories {
@@ -55,6 +56,7 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
     testImplementation "org.powermock:powermock-reflect:$powermockVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation 'commons-io:commons-io:2.6'
 }
 

@@ -12,8 +12,12 @@ public class ContributionStatsClient {
     private final Aggregator aggregator;
 
     public static ContributionStatsClient create() {
+        return create(WebClient.create());
+    }
+
+    public static ContributionStatsClient create(@Nonnull final WebClient webClient) {
         return new ContributionStatsClient(
-                new WebClient(), new UriBuilder(), new Parser(), new Aggregator());
+                webClient, new UriBuilder(), new Parser(), new Aggregator());
     }
 
     ContributionStatsClient(
