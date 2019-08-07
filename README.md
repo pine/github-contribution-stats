@@ -6,7 +6,7 @@
 
 :octocat: GitHub contribution stat utilities.
 
-![](images/readme.jpg)<br>
+![](pr/readme.jpg)<br>
 <sup><sup>&copy; PaylessImages/123RF.COM</sup></sup>
 <br>
 <br>
@@ -38,7 +38,7 @@ class Main {
     public static void main(String ...args) {
         final ContributionStatsClient client = ContributionStatsClient.create();
         final ContributionStats stats = client.collect("username");
-        
+
         System.out.println(stats);
     }
 }
