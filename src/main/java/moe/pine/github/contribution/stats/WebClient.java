@@ -1,63 +1,32 @@
 package moe.pine.github.contribution.stats;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import reactor.netty.http.client.HttpClient;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-class WebClient {
-    private static final String ENDPOINT = "https://github.com/users/%s/contributions";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    @Nonnull
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    List<Contribution> get(@Nonnull final String username) throws IOException {
-        Objects.requireNonNull(username);
-
-        if (username.isEmpty()) {
-            throw new IllegalArgumentException("`username` should not be empty.");
-        }
-
-        final String endpoint = String.format(ENDPOINT, username);
-        final Document document = Jsoup.connect(endpoint).get();
-        return getByDocument(document);
+public abstract class WebClient {
+    public static WebClient create() {
+        return new WebClientImpl();
     }
 
-    @Nonnull
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    List<Contribution> getByDocument(@Nonnull final Document document) {
-        Objects.requireNonNull(document);
+    public abstract String get(@Nonnull final String uri);
 
-        final Elements elements = document.select("rect");
-        final List<Contribution> contributions =
-            elements
-                .stream()
-                .flatMap(element -> {
-                    @Nonnull final String dateString = element.attr("data-date");
-                    @Nonnull final String countString = element.attr("data-count");
+    static class WebClientImpl extends WebClient {
+        private final HttpClient httpClient;
 
-                    if (dateString.isEmpty()) {
-                        return Stream.empty();
-                    }
-                    if (countString.isEmpty()) {
-                        return Stream.empty();
-                    }
+        WebClientImpl() {
+            httpClient = HttpClient.create();
+        }
 
-                    final LocalDate date = LocalDate.parse(dateString, FORMATTER);
-                    final int count = Integer.parseInt(countString);
-                    return Stream.of(new Contribution(date, count));
-                })
-                .collect(Collectors.toList());
-
-        return Collections.unmodifiableList(contributions);
+        @Override
+        public String get(@Nonnull final String uri) {
+            return httpClient
+                    .get()
+                    .uri(uri)
+                    .responseContent()
+                    .aggregate()
+                    .asString()
+                    .block();
+        }
     }
 }

@@ -1,8 +1,6 @@
 package moe.pine.github.contribution.stats;
 
 import org.apache.commons.io.IOUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -21,7 +19,6 @@ abstract class TestUtils {
     }
 
     static List<Contribution> getContributions() {
-        final Document document = Jsoup.parse(getContributionsHtml());
-        return new WebClient().getByDocument(document);
+        return new Parser().parse(getContributionsHtml());
     }
 }

@@ -34,10 +34,14 @@ depepdencies {
 import moe.pine.github.contribution.stats.ContributionStats;
 import moe.pine.github.contribution.stats.ContributionStatsClient;
 
-final ContributionStatsClient client = new ContributionStatsClient();
-final ContributionStats stats = client.collect("username");
-
-System.out.println(stats);
+class Main {
+    public static void main(String ...args) {
+        final ContributionStatsClient client = ContributionStatsClient.create();
+        final ContributionStats stats = client.collect("username");
+        
+        System.out.println(stats);
+    }
+}
 ```
 
 ## Development

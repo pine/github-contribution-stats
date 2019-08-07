@@ -1,81 +1,50 @@
 package moe.pine.github.contribution.stats;
 
-import org.jsoup.Jsoup;
-import org.jsoup.helper.HttpConnection;
-import org.jsoup.nodes.Document;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.junit.Assert.assertNotNull;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Jsoup.class)
+@RunWith(MockitoJUnitRunner.class)
 public class WebClientTest {
     private WebClient webClient;
+    private MockWebServer mockWebServer;
 
     @Before
     public void setUp() {
-        webClient = new WebClient();
+        webClient = WebClient.create();
+        mockWebServer = new MockWebServer();
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        mockWebServer.shutdown();
     }
 
     @Test
-    public void getTest() throws IOException {
-        final Document document = Jsoup.parse(TestUtils.getContributionsHtml());
-        final HttpConnection httpConnection = mock(HttpConnection.class);
-        when(httpConnection.get()).thenReturn(document);
+    public void getTest() throws InterruptedException {
+        final MockResponse mockResponse = new MockResponse();
+        mockResponse.setBody("body");
+        mockWebServer.enqueue(mockResponse);
 
-        mockStatic(Jsoup.class);
-        when(Jsoup.connect(anyString())).thenReturn(httpConnection);
+        final String uri = mockWebServer.url("/test").toString();
+        final String body = webClient.get(uri);
+        assertEquals("body", body);
 
-        final List<Contribution> contributions = webClient.get("pine");
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 5, 27), 9),
-            contributions.get(0));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 5, 28), 17),
-            contributions.get(1));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 5, 29), 10),
-            contributions.get(2));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 5, 30), 13),
-            contributions.get(3));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 5, 31), 8),
-            contributions.get(4));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 6, 1), 34),
-            contributions.get(5));
-        assertEquals(
-            new Contribution(LocalDate.of(2018, 6, 2), 25),
-            contributions.get(6));
-
-        assertEquals(
-            new Contribution(LocalDate.of(2019, 6, 1), 5),
-            contributions.get(370));
-
-        verifyStatic(Jsoup.class);
-        Jsoup.connect("https://github.com/users/pine/contributions");
-
-        verify(httpConnection).get();
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void getTest_illegalUsername() throws IOException {
-        webClient.get("");
+        final RecordedRequest recordedRequest =
+                mockWebServer.takeRequest(0L, TimeUnit.MILLISECONDS);
+        assertNotNull(recordedRequest);
+        assertEquals("/test", recordedRequest.getPath());
     }
 }

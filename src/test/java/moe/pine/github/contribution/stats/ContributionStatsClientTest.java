@@ -25,18 +25,41 @@ public class ContributionStatsClientTest {
     private WebClient webClient;
 
     @Mock
+    private UriBuilder uriBuilder;
+
+    @Mock
+    private Parser parser;
+
+    @Mock
     private Aggregator aggregator;
 
     @InjectMocks
     private ContributionStatsClient client;
 
     @Test
-    public void constructorTest_noArgs() {
-        final ContributionStatsClient client = new ContributionStatsClient();
-        final WebClient webClient = Whitebox.getInternalState(client, "webClient");
+    public void createTest_noArgs() {
+        final ContributionStatsClient client = ContributionStatsClient.create();
+        final UriBuilder uriBuilder = Whitebox.getInternalState(client, "uriBuilder");
+        final Parser parser = Whitebox.getInternalState(client, "parser");
         final Aggregator aggregator = Whitebox.getInternalState(client, "aggregator");
 
-        assertNotNull(webClient);
+        assertNotNull(client.getWebClient());
+        assertNotNull(uriBuilder);
+        assertNotNull(parser);
+        assertNotNull(aggregator);
+    }
+
+    @Test
+    public void createTest_withWebClient() {
+        final WebClient webClient = WebClient.create();
+        final ContributionStatsClient client = ContributionStatsClient.create(webClient);
+        final UriBuilder uriBuilder = Whitebox.getInternalState(client, "uriBuilder");
+        final Parser parser = Whitebox.getInternalState(client, "parser");
+        final Aggregator aggregator = Whitebox.getInternalState(client, "aggregator");
+
+        assertSame(webClient, client.getWebClient());
+        assertNotNull(uriBuilder);
+        assertNotNull(parser);
         assertNotNull(aggregator);
     }
 
@@ -54,7 +77,9 @@ public class ContributionStatsClientTest {
 
         final Summary summary = mock(Summary.class);
 
-        when(webClient.get("username")).thenReturn(contributions);
+        when(uriBuilder.build("username")).thenReturn("https://example.com/username");
+        when(webClient.get("https://example.com/username")).thenReturn("body");
+        when(parser.parse("body")).thenReturn(contributions);
         when(aggregator.getStreaks(contributions)).thenReturn(streaks);
         when(aggregator.summarizeContributions(contributions)).thenReturn(summary);
 
@@ -65,7 +90,9 @@ public class ContributionStatsClientTest {
         assertSame(streaks.longestStreak, stats.getLongestStreak());
         assertSame(summary, stats.getSummary());
 
-        verify(webClient).get("username");
+        verify(uriBuilder).build("username");
+        verify(webClient).get("https://example.com/username");
+        verify(parser).parse("body");
         verify(aggregator).getStreaks(contributions);
         verify(aggregator).summarizeContributions(contributions);
     }
