@@ -7,3 +7,4 @@ jdk:
 script:
   - ./gradlew check jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
+  - ./gradlew integrarionTest
