@@ -5,6 +5,6 @@ jdk:
   - openjdk11
 
 script:
-  - ./gradlew check jacocoTestReport
-  - bash <(curl -s https://codecov.io/bash)
-  - ./gradlew integrarionTest
+  - travis_retry ./gradlew check jacocoTestReport
+  - travis_retry bash <(curl -s https://codecov.io/bash)
+  - travis_retry ./gradlew integrarionTest
