@@ -7,4 +7,4 @@ jdk:
 script:
   - travis_retry ./gradlew check jacocoTestReport
   - travis_retry bash <(curl -s https://codecov.io/bash)
-  - travis_retry ./gradlew integrarionTest
+  - travis_retry ./gradlew integrationTest
