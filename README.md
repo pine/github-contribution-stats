@@ -24,7 +24,7 @@ repositories {
 }
 
 depepdencies {
-    implementation 'moe.pine:github-contribution-stats:0.1.0'
+    implementation 'moe.pine:github-contribution-stats:0.2.0'
 }
 ```
 
