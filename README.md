@@ -40,6 +40,22 @@ class Main {
         final ContributionStats stats = client.collect("username");
 
         System.out.println(stats);
+        // => ContributionStats{
+        //      contributions=[
+        //        Contribution{ date=2018-10-14, count=3 },
+        //        Contribution{ date=2018-10-15, count=3 }
+        //        Contribution{ date=2018-10-16, count=1 },
+        //        ...
+        //      ],
+        //      currentStreak=Streak{ days=27, start=2019-09-23, end=2019-10-19, unmeasurable=false }, 
+        //      longestStreak=Streak{ days=40, start=2019-07-26, end=2019-09-03, unmeasurable=false },
+        //      summary=Summary{
+        //        start=2018-10-14,
+        //        end=2019-10-19,
+        //        total=2888,
+        //        busiestDay=Contribution{ date=2019-07-07, count=108 }
+        //      }
+        //    })
     }
 }
 ```
