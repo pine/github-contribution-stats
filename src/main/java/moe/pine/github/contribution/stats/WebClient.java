@@ -9,5 +9,5 @@ public interface WebClient {
     }
 
     @Nullable
-    String get(final String uri);
+    String get(final String uri) throws InterruptedException;
 }

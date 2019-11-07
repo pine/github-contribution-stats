@@ -31,7 +31,7 @@ public class ContributionStatsClient {
         this.aggregator = Objects.requireNonNull(aggregator);
     }
 
-    public ContributionStats collect(final String username) throws IOException {
+    public ContributionStats collect(final String username) throws InterruptedException {
         final String uri = uriBuilder.build(username);
         final String body = webClient.get(uri);
         if (body == null || body.length() == 0) {

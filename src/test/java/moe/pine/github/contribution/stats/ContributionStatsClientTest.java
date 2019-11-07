@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +64,7 @@ public class ContributionStatsClientTest {
     }
 
     @Test
-    public void collectTest() throws IOException {
+    public void collectTest() throws InterruptedException {
         final List<Contribution> contributions = Arrays.asList(
             new Contribution(LocalDate.of(2019, 6, 1), 1),
             new Contribution(LocalDate.of(2019, 6, 2), 2),
@@ -99,7 +98,7 @@ public class ContributionStatsClientTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void collectTest_nullBody() throws IOException {
+    public void collectTest_nullBody() throws InterruptedException {
         when(uriBuilder.build("username")).thenReturn("https://example.com/username");
         when(webClient.get("https://example.com/username")).thenReturn(null);
 
@@ -107,7 +106,7 @@ public class ContributionStatsClientTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void collectTest_emptyBody() throws IOException {
+    public void collectTest_emptyBody() throws InterruptedException {
         when(uriBuilder.build("username")).thenReturn("https://example.com/username");
         when(webClient.get("https://example.com/username")).thenReturn("");
 

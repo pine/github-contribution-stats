@@ -3,7 +3,6 @@ package moe.pine.github.contribution.stats;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import static org.junit.Assert.assertFalse;
 @SuppressWarnings("NullableProblems")
 public class ContributionStatsClientIT {
     private static final List<String> USERNAMES =
-            Collections.singletonList("pine");
+        Collections.singletonList("pine");
 
     private ContributionStatsClient contributionStatsClient;
 
@@ -22,10 +21,10 @@ public class ContributionStatsClientIT {
     }
 
     @Test
-    public void getTest() throws IOException {
+    public void getTest() throws InterruptedException {
         for (final String username : USERNAMES) {
             final ContributionStats contributionStats =
-                    contributionStatsClient.collect(username);
+                contributionStatsClient.collect(username);
             assertFalse(contributionStats.getContributions().isEmpty());
         }
     }
