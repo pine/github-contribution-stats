@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
@@ -17,13 +16,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WebClientTest {
-    private WebClient webClient;
+public class DefaultWebClientTest {
+    private DefaultWebClient defaultWebClient;
     private MockWebServer mockWebServer;
 
     @Before
     public void setUp() {
-        webClient = WebClient.create();
+        defaultWebClient = new DefaultWebClient();
         mockWebServer = new MockWebServer();
     }
 
@@ -39,11 +38,11 @@ public class WebClientTest {
         mockWebServer.enqueue(mockResponse);
 
         final String uri = mockWebServer.url("/test").toString();
-        final String body = webClient.get(uri);
+        final String body = defaultWebClient.get(uri);
         assertEquals("body", body);
 
         final RecordedRequest recordedRequest =
-                mockWebServer.takeRequest(0L, TimeUnit.MILLISECONDS);
+            mockWebServer.takeRequest(0L, TimeUnit.MILLISECONDS);
         assertNotNull(recordedRequest);
         assertEquals("/test", recordedRequest.getPath());
     }
