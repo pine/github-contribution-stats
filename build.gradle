@@ -71,9 +71,9 @@ compileJava {
 }
 
 dependencies {
-    api 'org.jsoup:jsoup:1.12.1'
-    api 'io.projectreactor.netty:reactor-netty:0.8.10.RELEASE'
-    api 'moe.pine:nonnull:0.1.0'
+    implementation 'org.jsoup:jsoup:1.12.1'
+    implementation 'io.projectreactor.netty:reactor-netty:0.8.10.RELEASE'
+    implementation 'moe.pine:nonnull:0.1.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.28.2'
