@@ -16,7 +16,7 @@
 - Java 8 or later
 
 ## Getting started
-The library is published to [jcenter](https://bintray.com/pinemz/maven/github-contribution-stats).
+The library is published to [jcenter](https://bintray.com/pinemz/maven/github-contribution-stats). Please replace `$latest_version` with [![Download](https://api.bintray.com/packages/pinemz/maven/github-contribution-stats/images/download.svg)](https://bintray.com/pinemz/maven/github-contribution-stats).
 
 ```gradle
 repositories {
@@ -24,7 +24,7 @@ repositories {
 }
 
 depepdencies {
-    implementation 'moe.pine:github-contribution-stats:0.2.0'
+    implementation "moe.pine:github-contribution-stats:$latest_version"
 }
 ```
 
