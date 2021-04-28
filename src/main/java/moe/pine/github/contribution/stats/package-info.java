@@ -1,3 +1,6 @@
-@moe.pine.nonnull.NonNullApi
-@moe.pine.nonnull.NonNullFields
+@NonNullApi
+@NonNullFields
 package moe.pine.github.contribution.stats;
+
+import moe.pine.nonnull.NonNullApi;
+import moe.pine.nonnull.NonNullFields;
